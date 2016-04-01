@@ -21,16 +21,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
+  src: path.join(__dirname, 'assets'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Redis Configuration Setup
-var redis = require("redis");
-var REDIS_CONNECTION_STRING = process.env.REDIS_URL || "redis://localhost:6379";
+var redis = require('redis');
+var bluebird = require('bluebird')
+var REDIS_CONNECTION_STRING = process.env.REDIS_URL || 'redis://localhost:6379';
 var client = redis.createClient(REDIS_CONNECTION_STRING);
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
